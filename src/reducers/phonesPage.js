@@ -1,13 +1,14 @@
 import { FETCH_PHONES_SUCCESS } from "../actionTypes";
-import { indexBy, prop, merge } from "ramda";
+import { pluck, merge } from "ramda";
 
-const initialState = {};
+const initialState = {
+  ids: []
+};
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case FETCH_PHONES_SUCCESS:
-      const newValues = indexBy(prop("id"), payload);
-      return merge(state, newValues);
+      return merge(state, { ids: pluck("id", payload) });
     default:
       return state;
   }
