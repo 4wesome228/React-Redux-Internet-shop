@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchPhones } from "../../actions";
+import { fetchPhones, loadMorePhones } from "../../actions";
 import { getPhones } from "../../selectors";
 import { Link } from "react-router-dom";
 
@@ -13,9 +13,9 @@ class Phones extends Component {
     const shortDesc = `${phone.description.slice(0, 50)}...`;
     return (
       <div className="col-sm-4 col-lg-4 col-md-4 book-list" key={idx}>
-        <div className="card mb-2 p-2">
+        <div className="card mb-2">
           <img className="img-thumbnail" src={phone.image} alt={phone.name} />
-          <div className="caption">
+          <div className="caption p-2">
             <h4 className="pull-right">${phone.price}</h4>
             <h4 className="h5">
               <Link className="stretched-link" to={`/phones/${phone.id}`}>
@@ -39,11 +39,18 @@ class Phones extends Component {
   }
 
   render() {
-    const { phones } = this.props;
+    const { phones, loadMorePhones } = this.props;
 
     return (
-      <div className="books row">
-        {phones.map((phone, idx) => this.renderPhone(phone, idx))}
+      <div>
+        <div className="books row">
+          {phones.map((phone, idx) => this.renderPhone(phone, idx))}
+        </div>
+        <div>
+          <button className="btn btn-primary" onClick={loadMorePhones}>
+            Load More
+          </button>
+        </div>
       </div>
     );
   }
@@ -56,7 +63,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  fetchPhones
+  fetchPhones,
+  loadMorePhones
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Phones);

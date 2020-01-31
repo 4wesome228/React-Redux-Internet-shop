@@ -5,3 +5,9 @@ export const fetchPhones = async () => {
     resolve(phones);
   });
 };
+
+export const loadMorePhones = async () => {
+  return new Promise((resolve, reject) => {
+    resolve(phones);
+  });
+};
