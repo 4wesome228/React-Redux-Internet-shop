@@ -11,3 +11,10 @@ export const loadMorePhones = async () => {
     resolve(phones);
   });
 };
+
+export const fetchPhoneById = async id => {
+  const phone = phones.find(phone => phone.id === id);
+  return new Promise((resolve, reject) => {
+    resolve(phone);
+  });
+};

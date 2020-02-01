@@ -4,11 +4,19 @@ import {
   FETCH_PHONES_SUCCESS,
   LOAD_MORE_PHONES_REQUEST,
   LOAD_MORE_PHONES_SUCCESS,
-  LOAD_MORE_PHONES_FAILURE
+  LOAD_MORE_PHONES_FAILURE,
+  FETCH_PHONE_BY_ID_REQUEST,
+  FETCH_PHONE_BY_ID_FAILURE,
+  FETCH_PHONE_BY_ID_SUCCESS,
+  ADD_PHONE_TO_CART
 } from "../actionTypes";
 
-import { fetchPhones as fetchPhonesAPI } from "../service";
-import { loadMorePhones as loadMorePhonesAPI } from "../service";
+import {
+  fetchPhones as fetchPhonesAPI,
+  loadMorePhones as loadMorePhonesAPI,
+  fetchPhoneById as fetchPhoneByIdAPI
+} from "../service";
+
 //import { getRenderedPhonesLength } from "../selectors";
 
 const fetchPhonesData = async (types, fetchFromAPI, dispatch) => {
@@ -27,7 +35,7 @@ const fetchPhonesData = async (types, fetchFromAPI, dispatch) => {
     dispatch({
       type: failure,
       payload: error,
-      error: error
+      error: true
     });
   }
 };
@@ -51,4 +59,32 @@ export const loadMorePhones = () => async (dispatch, getState) => {
     loadMorePhonesAPI,
     dispatch
   );
+};
+
+export const fetchPhoneById = id => async dispatch => {
+  dispatch({
+    type: FETCH_PHONE_BY_ID_REQUEST
+  });
+
+  try {
+    const phone = await fetchPhoneByIdAPI(id);
+    debugger;
+    dispatch({
+      type: FETCH_PHONE_BY_ID_SUCCESS,
+      payload: phone
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_PHONE_BY_ID_FAILURE,
+      payload: error,
+      error: true
+    });
+  }
+};
+
+export const addPhoneToCart = id => {
+  return {
+    type: ADD_PHONE_TO_CART,
+    payload: id
+  };
 };
