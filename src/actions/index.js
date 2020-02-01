@@ -8,7 +8,8 @@ import {
   FETCH_PHONE_BY_ID_REQUEST,
   FETCH_PHONE_BY_ID_FAILURE,
   FETCH_PHONE_BY_ID_SUCCESS,
-  ADD_PHONE_TO_CART
+  ADD_PHONE_TO_CART,
+  SEARCH_PHONES
 } from "../actionTypes";
 
 import {
@@ -86,5 +87,12 @@ export const addPhoneToCart = id => {
   return {
     type: ADD_PHONE_TO_CART,
     payload: id
+  };
+};
+
+export const searchPhones = value => {
+  return {
+    type: SEARCH_PHONES,
+    payload: value
   };
 };

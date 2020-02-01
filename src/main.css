@@ -328,6 +328,15 @@
     cursor: pointer;
 }
 
+.search {
+    cursor: pointer;
+}
+
+.search-backgound {
+    background-color: #ecf0f1;
+    padding: 2rem 0 1rem .5rem;
+}
+
 .x-change {
     margin-right: 5px;
 }

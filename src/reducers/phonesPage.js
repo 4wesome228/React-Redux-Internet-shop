@@ -1,8 +1,13 @@
-import { FETCH_PHONES_SUCCESS, LOAD_MORE_PHONES_SUCCESS } from "../actionTypes";
+import {
+  FETCH_PHONES_SUCCESS,
+  LOAD_MORE_PHONES_SUCCESS,
+  SEARCH_PHONES
+} from "../actionTypes";
 import { pluck, merge } from "ramda";
 
 const initialState = {
-  ids: []
+  ids: [],
+  search: ""
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -15,6 +20,13 @@ export default (state = initialState, { type, payload }) => {
       return {
         ids: [...state.ids, ...ids]
       };
+
+    case SEARCH_PHONES:
+      return {
+        ...state,
+        search: payload
+      };
+
     default:
       return state;
   }

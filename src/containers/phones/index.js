@@ -47,6 +47,7 @@ class Phones extends Component {
 
   render() {
     const { phones, loadMorePhones } = this.props;
+    console.log(phones);
 
     return (
       <Layout>

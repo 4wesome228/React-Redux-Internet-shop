@@ -8,7 +8,11 @@ const Cart = ({ cartItemsCount, totalPrice }) => {
   return (
     <div className="cart">
       <div className="dropdown">
-        <Link to="/cart" id="dLabel" className="btn btn-inverse btn-lg">
+        <Link
+          to="/cart"
+          id="dLabel"
+          className="btn btn-inverse  btn-block btn-lg"
+        >
           <i className="fa fa-shopping-cart" />
           <span>
             {cartItemsCount} item(s) - $ {totalPrice}
