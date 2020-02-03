@@ -23,7 +23,7 @@ class Search extends Component {
   render() {
     const { value } = this.state;
     return (
-      <div className="search-backgound">
+      <div className="search-backgound ">
         <h3 className="lead pb-2 text-center">Quick shop</h3>
         <div className="input-group md-form form-sm">
           <form onSubmit={this.handleSubmit}>

@@ -16,16 +16,10 @@ export default (state = initialState, { type, payload }) => {
       return merge(state, { ids: pluck("id", payload) });
     case LOAD_MORE_PHONES_SUCCESS:
       const ids = pluck("id", payload);
-
-      return {
-        ids: [...state.ids, ...ids]
-      };
+      return merge(state, { ids: [...state.ids, ...ids] });
 
     case SEARCH_PHONES:
-      return {
-        ...state,
-        search: payload
-      };
+      return merge(state, { search: payload });
 
     default:
       return state;

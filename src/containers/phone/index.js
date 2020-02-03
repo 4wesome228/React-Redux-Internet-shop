@@ -50,13 +50,10 @@ class Phone extends Component {
 
     return (
       <div>
-        <p className="lead">Quick shop</p>
+        <p className="lead text-center pb-2">Quick shop</p>
         <Cart />
-        <div className="form-group">
-          <h1>{phone.name}</h1>
-          <h2>${phone.price}</h2>
-        </div>
-        <Link to="/" className="btn btn-info btn-block">
+
+        <Link to="/" className="btn btn-info btn-block mt-4">
           Back to store
         </Link>
         <button

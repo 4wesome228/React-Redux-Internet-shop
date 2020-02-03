@@ -12,6 +12,7 @@ export default (state = initialState, { type, payload }) => {
     case LOAD_MORE_PHONES_SUCCESS:
       const moreValues = indexBy(prop("id"), payload);
       return merge(state, moreValues);
+
     default:
       return state;
   }

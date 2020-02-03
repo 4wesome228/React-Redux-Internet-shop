@@ -1,7 +1,9 @@
 import { prop, map, length, pluck, sum, filter, contains } from "ramda";
 import { compose } from "redux";
 
-export const getPhoneById = (state, id) => prop(id, state.phones);
+export const getPhoneById = (state, id) => {
+  return (state.phones && prop(id, state.phones)) || state.phonePage;
+};
 
 export const getPhones = state => {
   const apllyFilter = item =>

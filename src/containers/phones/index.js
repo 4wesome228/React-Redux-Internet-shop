@@ -11,14 +11,14 @@ class Phones extends Component {
   }
 
   renderPhone(phone, idx) {
-    const shortDesc = `${phone.description.slice(0, 50)}...`;
+    const shortDesc = `${phone.description.slice(0, 60)}...`;
     const { addPhoneToCart } = this.props;
     return (
       <div className="col-sm-4 col-lg-4 col-md-4 book-list" key={idx}>
         <div className="card mb-2">
           <img className="img-thumbnail" src={phone.image} alt={phone.name} />
           <div className="caption p-2">
-            <h4 className="pull-right">${phone.price}</h4>
+            <h4 className="pull-right h5">${phone.price}</h4>
             <h4 className="h5">
               <Link className="" to={`/phones/${phone.id}`}>
                 {phone.name}

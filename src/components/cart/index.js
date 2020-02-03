@@ -13,8 +13,8 @@ const Cart = ({ cartItemsCount, totalPrice }) => {
           id="dLabel"
           className="btn btn-inverse  btn-block btn-lg"
         >
-          <i className="fa fa-shopping-cart" />
-          <span>
+          <i className="fa fa-shopping-cart pr-2 cart-icon" />
+          <span className="cart">
             {cartItemsCount} item(s) - $ {totalPrice}
           </span>
         </Link>
