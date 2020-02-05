@@ -241,7 +241,10 @@
 }
 
 .well {
+  margin-top: 1rem;
   border-radius: 0 0 4px 4px;
+  background-color: #ecf0f1;
+  padding: 1rem;
 }
 
 .open > .dropdown-menu {

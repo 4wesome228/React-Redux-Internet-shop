@@ -8,6 +8,7 @@ export default () => {
   return (
     <Switch>
       <Route path="/" exact component={Phones} />
+      <Route path="/categories/:id?" component={Phones} />
       <Route path="/phones/:id" component={Phone} />
     </Switch>
   );

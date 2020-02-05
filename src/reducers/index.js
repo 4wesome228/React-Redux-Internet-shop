@@ -5,6 +5,7 @@ import phones from "./phones";
 import phonesPage from "./phonesPage";
 import phonePage from "./phonePage";
 import cart from "./cart";
+import categories from "./categories";
 
 export default history =>
   combineReducers({
@@ -12,5 +13,6 @@ export default history =>
     phonesPage,
     phonePage,
     cart,
+    categories,
     router: connectRouter(history)
   });

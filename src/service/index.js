@@ -1,4 +1,5 @@
 import phones from "./mockPhones";
+import categories from "./mockCategories";
 
 export const fetchPhones = async offset => {
   return new Promise((resolve, reject) => {
@@ -24,6 +25,14 @@ export const fetchPhoneById = async id => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(phone);
+    }, 1000);
+  });
+};
+
+export const fetchCategories = async => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(categories);
     }, 1000);
   });
 };

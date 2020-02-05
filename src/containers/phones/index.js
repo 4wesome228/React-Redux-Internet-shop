@@ -1,14 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchPhones, loadMorePhones, addPhoneToCart } from "../../actions";
-import { getPhones, getPhonesOffset } from "../../selectors";
 import { Link } from "react-router-dom";
 import Layout from "../layout";
 
+import {
+  fetchPhones,
+  loadMorePhones,
+  addPhoneToCart,
+  fetchCategories
+} from "../../actions";
+import { getPhones, getPhonesOffset } from "../../selectors";
+import Spinner from "../../components/spinner";
+
 class Phones extends Component {
   componentDidMount() {
-    const { offset, fetchPhones } = this.props;
+    const { offset, fetchPhones, fetchCategories } = this.props;
     fetchPhones(offset);
+    fetchCategories();
   }
 
   renderPhone(phone, idx) {
@@ -48,13 +56,23 @@ class Phones extends Component {
 
   render() {
     const { phones, loadMorePhones } = this.props;
+    let phoneItems;
+    if (phones.length) {
+      phoneItems = phones.map((phone, idx) => this.renderPhone(phone, idx));
+    }
 
     return (
       <Layout>
         <div className="books row">
-          {phones.map((phone, idx) => this.renderPhone(phone, idx))}
+          {!phones.length ? (
+            <h2 className="text-center">No such phone(s) by this query</h2>
+          ) : !phoneItems ? (
+            <Spinner />
+          ) : (
+            phoneItems
+          )}
         </div>
-        {phones.length < 9 && phones.length ? (
+        {phones.length < 9 && phones.length && !this.props.match.params.id ? (
           <div className="text-center ">
             <button className="btn btn-info" onClick={loadMorePhones}>
               Load More
@@ -66,9 +84,9 @@ class Phones extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    phones: getPhones(state),
+    phones: getPhones(state, ownProps),
     offset: getPhonesOffset(state) || 6
   };
 };
@@ -76,7 +94,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   fetchPhones,
   loadMorePhones,
-  addPhoneToCart
+  addPhoneToCart,
+  fetchCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Phones);
