@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPhones, loadMorePhones, addPhoneToCart } from "../../actions";
-import { getPhones } from "../../selectors";
+import { getPhones, getPhonesOffset } from "../../selectors";
 import { Link } from "react-router-dom";
 import Layout from "../layout";
 
 class Phones extends Component {
   componentDidMount() {
-    this.props.fetchPhones();
+    const { offset, fetchPhones } = this.props;
+    fetchPhones(offset);
   }
 
   renderPhone(phone, idx) {
@@ -53,11 +54,13 @@ class Phones extends Component {
         <div className="books row">
           {phones.map((phone, idx) => this.renderPhone(phone, idx))}
         </div>
-        <div>
-          <button className="btn btn-primary" onClick={loadMorePhones}>
-            Load More
-          </button>
-        </div>
+        {phones.length < 9 && phones.length ? (
+          <div className="text-center ">
+            <button className="btn btn-info" onClick={loadMorePhones}>
+              Load More
+            </button>
+          </div>
+        ) : null}
       </Layout>
     );
   }
@@ -65,7 +68,8 @@ class Phones extends Component {
 
 const mapStateToProps = state => {
   return {
-    phones: getPhones(state)
+    phones: getPhones(state),
+    offset: getPhonesOffset(state) || 6
   };
 };
 

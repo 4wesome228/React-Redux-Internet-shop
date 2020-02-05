@@ -17,17 +17,18 @@ import {
   loadMorePhones as loadMorePhonesAPI,
   fetchPhoneById as fetchPhoneByIdAPI
 } from "../service";
+import { getRenderedPhonesLength } from "../selectors";
 
 //import { getRenderedPhonesLength } from "../selectors";
 
-const fetchPhonesData = async (types, fetchFromAPI, dispatch) => {
+const fetchPhonesData = async (types, fetchFromAPI, dispatch, offset) => {
   const [request, success, failure] = types;
   dispatch({
     type: request
   });
 
   try {
-    const phones = await fetchFromAPI();
+    const phones = await fetchFromAPI(offset);
     dispatch({
       type: success,
       payload: phones
@@ -35,31 +36,39 @@ const fetchPhonesData = async (types, fetchFromAPI, dispatch) => {
   } catch (error) {
     dispatch({
       type: failure,
-      payload: error,
-      error: true
+      payload: error
     });
   }
 };
 
-export const fetchPhones = () => async dispatch => {
+export const fetchPhones = offset => async dispatch => {
   fetchPhonesData(
     [FETCH_PHONES_REQUEST, FETCH_PHONES_SUCCESS, FETCH_PHONES_FAILURE],
     fetchPhonesAPI,
-    dispatch
+    dispatch,
+    offset
   );
 };
 
 export const loadMorePhones = () => async (dispatch, getState) => {
-  //const offset = getRenderedPhonesLength(getState());
-  fetchPhonesData(
-    [
-      LOAD_MORE_PHONES_REQUEST,
-      LOAD_MORE_PHONES_SUCCESS,
-      LOAD_MORE_PHONES_FAILURE
-    ],
-    loadMorePhonesAPI,
-    dispatch
-  );
+  const offset = getRenderedPhonesLength(getState());
+
+  dispatch({
+    type: LOAD_MORE_PHONES_REQUEST
+  });
+
+  try {
+    const phones = await loadMorePhonesAPI(offset);
+    dispatch({
+      type: LOAD_MORE_PHONES_SUCCESS,
+      payload: phones
+    });
+  } catch (error) {
+    dispatch({
+      type: LOAD_MORE_PHONES_FAILURE,
+      payload: error
+    });
+  }
 };
 
 export const fetchPhoneById = id => async dispatch => {

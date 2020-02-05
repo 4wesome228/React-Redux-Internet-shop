@@ -30,3 +30,7 @@ export const getTotalCartPrice = state => {
 export const getTotalCartCount = state => {
   return length(state.cart);
 };
+
+export const getPhonesOffset = state => {
+  return state.phonesPage.ids.length;
+};

@@ -1,17 +1,20 @@
 import phones from "./mockPhones";
 
-export const fetchPhones = async () => {
+export const fetchPhones = async offset => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(phones);
+      resolve(phones.slice(0, offset));
     }, 1000);
   });
 };
 
-export const loadMorePhones = async () => {
+export const loadMorePhones = async offset => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(phones);
+      if (offset === 9) {
+        reject("No more phones available");
+      }
+      resolve(phones.slice(offset));
     }, 1000);
   });
 };
