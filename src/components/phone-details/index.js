@@ -2,7 +2,7 @@ import React from "react";
 import { toPairs, pick, compose } from "ramda";
 import { Link } from "react-router-dom";
 
-import Cart from "../../components/cart";
+import Cart from "../cart";
 
 const Phone = ({ phone, addPhoneToCart }) => {
   const renderFields = () => {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPhoneById, addPhoneToCart } from "../../actions";
 
-import Phone from "../../components/phone";
+import Phone from "../../components/phone-details";
 import Spinner from "../../components/spinner";
 
 class PhoneContainer extends Component {
@@ -21,6 +21,7 @@ class PhoneContainer extends Component {
 
   render() {
     const { phone } = this.props;
+
     return !this.state.loading ? (
       <Phone phone={phone} addPhoneToCart={this.props.addPhoneToCart} />
     ) : (
