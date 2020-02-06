@@ -73,7 +73,10 @@ class Phones extends Component {
             phoneItems
           )}
         </div>
-        {offset !== 9 && !this.props.match.params.id && !loading ? (
+        {phones.length &&
+        offset < 9 &&
+        !this.props.match.params.id &&
+        !loading ? (
           <div className="text-center ">
             <button className="btn btn-info" onClick={loadMorePhones}>
               Load More

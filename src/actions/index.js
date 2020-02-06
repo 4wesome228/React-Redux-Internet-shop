@@ -106,7 +106,7 @@ export const addPhoneToCart = id => {
 export const searchPhones = value => {
   return {
     type: SEARCH_PHONES,
-    payload: value
+    payload: value.toLowerCase()
   };
 };
 

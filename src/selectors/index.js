@@ -1,4 +1,15 @@
-import { prop, map, length, pluck, sum, filter, contains, values } from "ramda";
+import {
+  prop,
+  map,
+  length,
+  pluck,
+  sum,
+  filter,
+  contains,
+  values,
+  toLower,
+  trim
+} from "ramda";
 import { compose } from "redux";
 
 export const getPhoneById = (state, id) => {
@@ -7,7 +18,10 @@ export const getPhoneById = (state, id) => {
 
 export const getPhones = (state, ownProps) => {
   const apllyFilter = item =>
-    contains(state.phonesPage.search, prop("name", item));
+    contains(
+      state.phonesPage.search,
+      compose(toLower, trim, prop("name"))(item)
+    );
 
   const phones = compose(
     filter(apllyFilter),

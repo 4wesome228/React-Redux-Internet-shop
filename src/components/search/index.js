@@ -11,7 +11,7 @@ class Search extends Component {
   }
 
   handleChange = e => {
-    const value = e.target.value;
+    const value = e.target.value.trim();
     this.setState({ value });
   };
 
