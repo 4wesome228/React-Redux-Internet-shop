@@ -11,6 +11,7 @@ import {
 } from "../../actions";
 import { getPhones, getPhonesOffset } from "../../selectors";
 import Spinner from "../../components/spinner";
+import { isEmpty } from "ramda";
 
 class Phones extends Component {
   componentDidMount() {
@@ -55,24 +56,24 @@ class Phones extends Component {
   }
 
   render() {
-    const { phones, loadMorePhones } = this.props;
+    const { phones, loadMorePhones, loading, offset } = this.props;
     let phoneItems;
-    if (phones.length) {
+    if (!isEmpty(phones)) {
       phoneItems = phones.map((phone, idx) => this.renderPhone(phone, idx));
     }
 
     return (
       <Layout>
         <div className="books row">
-          {!phones.length ? (
-            <h2 className="text-center">No such phone(s) by this query</h2>
-          ) : !phoneItems ? (
+          {loading ? (
             <Spinner />
+          ) : isEmpty(phones) ? (
+            <h2 className="text-center">No such phone(s) by this query</h2>
           ) : (
             phoneItems
           )}
         </div>
-        {phones.length < 9 && phones.length && !this.props.match.params.id ? (
+        {offset !== 9 && !this.props.match.params.id && !loading ? (
           <div className="text-center ">
             <button className="btn btn-info" onClick={loadMorePhones}>
               Load More
@@ -87,7 +88,8 @@ class Phones extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     phones: getPhones(state, ownProps),
-    offset: getPhonesOffset(state) || 6
+    offset: getPhonesOffset(state) || 6,
+    loading: state.phonesPage.loading
   };
 };
 

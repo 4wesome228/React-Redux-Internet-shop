@@ -23,7 +23,7 @@ export const getPhones = (state, ownProps) => {
     return phonesOfCurrentCategory;
   }
 
-  return phones;
+  return phones || null;
 };
 
 export const getRenderedPhonesLength = state => length(state.phonesPage.ids);
